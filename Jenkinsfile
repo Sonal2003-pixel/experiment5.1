@@ -14,7 +14,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/your-username/MyApplication.git'
+                    url: 'https://github.com/Sonal2003-pixel/experiment5.1.git'
             }
         }
 
