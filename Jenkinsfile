@@ -1,12 +1,10 @@
-
-
-
 pipeline {
     agent any
 
     environment {
         DOCKER_IMAGE = 'sonaldsilva/experiment5repo'
         DOCKER_CREDENTIALS = 'dockerhub_credentials'
+        DOCKER_CMD = '"C:\\Users\\pauld\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe"'
     }
 
     stages {
@@ -27,7 +25,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t %DOCKER_IMAGE%:latest .'
+                bat '%DOCKER_CMD% build -t %DOCKER_IMAGE%:latest .'
             }
         }
 
@@ -40,9 +38,9 @@ pipeline {
                         passwordVariable: 'DOCKER_PASS'
                     )
                 ]) {
-                    bat 'docker login -u %DOCKER_USER% -p %DOCKER_PASS%'
-                    bat 'docker push %DOCKER_IMAGE%:latest'
-                    bat 'docker logout'
+                    bat '%DOCKER_CMD% login -u %DOCKER_USER% -p %DOCKER_PASS%'
+                    bat '%DOCKER_CMD% push %DOCKER_IMAGE%:latest'
+                    bat '%DOCKER_CMD% logout'
                 }
             }
         }
@@ -58,4 +56,3 @@ pipeline {
         }
     }
 }
-
